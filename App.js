@@ -11,6 +11,10 @@
 import React, { Component } from 'react';
 import { NativeModules, FlatList, Platform, StyleSheet, Text, View, Image } from 'react-native';
 import NativoAd from 'react-native-nativo-ads';
+import NativeAdTemplate from "./adTemplates/NativeAdTemplate";
+import VideoAdTemplate from "./adTemplates/NativeVideoAdTemplate";
+import StandardDisplayAdTemplate from "./adTemplates/StandardDisplayAdTemplate";
+import LandingPageTemplate from "./adTemplates/LandingPageAdTemplate";
 
 export default class App extends Component {
   render() {
@@ -33,14 +37,25 @@ export default class App extends Component {
     NativoSDK.enableDevLogs();
     NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
     //NativoSDK.enableTestAdvertisements();
-    NativoSDK.prefetchAdForSection("pub.com", "7");
+    //NativoSDK.prefetchAdForSection("pub.com", "7");
+
+    // Register Templates
+    NativoSDK.registerTemplateComponent("NativeAdTemplate", NativeAdTemplate);
+    NativoSDK.registerTemplateComponent("VideoAdTemplate", VideoAdTemplate);
+    NativoSDK.registerTemplateComponent("StandardDisplayAdTemplate", StandardDisplayAdTemplate);
+    NativoSDK.registerTemplateComponent("LandingPageTemplate", LandingPageTemplate);
 
     let itemRender = (props) => {
       let nativoItem;
       let articleItem;
-      let isNativoAd = props.index === 2 || props.index === 7;
+      let isNativoAd = props.index === 2;
 
-      let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} locationId={props.index.toString()} style={{ width: "100%", height: 150 }} />);
+      let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
+                                    locationId={props.index.toString()} 
+                                    nativeAdTemplate={"NativeAdTemplate"}
+                                    videoAdTemplate={"VideoAdTemplate"}
+                                    landingPageTemplate={"LandingPageTemplate"}
+                                    style={{ width: "100%", height: 200 }} />);
 
       let ArticleUnit = (<View>
                   <Text style={styles.title}>
