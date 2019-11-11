@@ -35,8 +35,8 @@ export default class App extends Component {
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
-    //NativoSDK.enableTestAdvertisements();
+    //NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
+    NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
 
     // Register Templates
@@ -48,14 +48,19 @@ export default class App extends Component {
     let itemRender = (props) => {
       let nativoItem;
       let articleItem;
-      let isNativoAd = props.index === 2;
+      let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
+      let displayLandingPage = (event) => {
+        console.log("Printing ad data:");
+        console.log(JSON.stringify(event.nativeEvent));
+      };
 
       let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
                                     locationId={props.index.toString()} 
                                     nativeAdTemplate={"NativeAdTemplate"}
                                     videoAdTemplate={"VideoAdTemplate"}
                                     landingPageTemplate={"LandingPageTemplate"}
-                                    style={{ width: "100%", height: 200 }} />);
+                                    onAdClick={displayLandingPage}
+                                    style={{ width: "100%", height: 350 }} />);
 
       let ArticleUnit = (<View>
                   <Text style={styles.title}>
@@ -80,10 +85,8 @@ export default class App extends Component {
 
   return(
       <View style = { styles.container } >
-      <Text style={styles.welcome}>☆NativoAds example☆</Text>
-
-      <FlatList data={data} renderItem={itemRender} style={styles.list} />
-
+        <Text style={styles.welcome}>☆NativoAds example☆</Text>
+        <FlatList data={data} renderItem={itemRender} style={styles.list} />
       </View>
     );
 
