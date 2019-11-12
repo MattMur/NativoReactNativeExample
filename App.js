@@ -49,15 +49,29 @@ export default class App extends Component {
 
       let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
 
-      let displayLandingPage = (event) => {
-        console.log("Printing ad data:");
+      let showLandingPage = (event) => {
+        console.log("Display landing page");
         console.log(JSON.stringify(event.nativeEvent));
       };
+      let showClickoutPage = (event) => {
+        console.log("Display clickout");
+        console.log(JSON.stringify(event.nativeEvent));
+      };
+      let onArticleClick = () => { 
+        console.log("Article clicked!");
+        let params = { title: "News Article", 
+        authorName: props.item.key, 
+        articleUrl: "https://ktla.com/2019/11/11/neil-young-says-his-weed-use-has-stalled-his-u-s-citizenship-application/"};
+        this.props.navigation.navigate('LandingPage', params);
+      }
+
 
       let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
                                     locationId={props.index.toString()} 
                                     nativeAdTemplate={"NativeAdTemplate"}
                                     videoAdTemplate={"VideoAdTemplate"}
+                                    onNativeAdClick={showLandingPage}
+                                    onDisplayAdClick={showClickoutPage}
                                     style={{ width: "100%", height: 350 }} />);
 
       let ArticleUnit = (<View>
@@ -73,11 +87,9 @@ export default class App extends Component {
                     style={styles.articleImage} />
                 </View>);
 
-      let onArticleClick = () => this.props.navigation.navigate('LandingPage')
-
       return (
         <View style={styles.item}>
-          <TouchableHighlight onClick={onArticleClick}>
+          <TouchableHighlight onPress={onArticleClick}>
             { isNativoAd ? NativoAdUnit : ArticleUnit }
           </TouchableHighlight>
         </View>
