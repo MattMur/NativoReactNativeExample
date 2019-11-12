@@ -9,7 +9,7 @@
  */
 
 import React, { Component } from 'react';
-import { NativeModules, FlatList, Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { NativeModules, FlatList, Platform, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import NativoAd from 'react-native-nativo-ads';
 import NativeAdTemplate from "./adTemplates/NativeAdTemplate";
 import VideoAdTemplate from "./adTemplates/NativeVideoAdTemplate";
@@ -46,9 +46,9 @@ export default class App extends Component {
     NativoSDK.registerTemplateComponent("LandingPageTemplate", LandingPageTemplate);
 
     let itemRender = (props) => {
-      let nativoItem;
-      let articleItem;
+
       let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
+
       let displayLandingPage = (event) => {
         console.log("Printing ad data:");
         console.log(JSON.stringify(event.nativeEvent));
@@ -58,8 +58,6 @@ export default class App extends Component {
                                     locationId={props.index.toString()} 
                                     nativeAdTemplate={"NativeAdTemplate"}
                                     videoAdTemplate={"VideoAdTemplate"}
-                                    landingPageTemplate={"LandingPageTemplate"}
-                                    onAdClick={displayLandingPage}
                                     style={{ width: "100%", height: 350 }} />);
 
       let ArticleUnit = (<View>
@@ -75,9 +73,13 @@ export default class App extends Component {
                     style={styles.articleImage} />
                 </View>);
 
+      let onArticleClick = () => this.props.navigation.navigate('LandingPage')
+
       return (
         <View style={styles.item}>
-          { isNativoAd ? NativoAdUnit : ArticleUnit }
+          <TouchableHighlight onClick={onArticleClick}>
+            { isNativoAd ? NativoAdUnit : ArticleUnit }
+          </TouchableHighlight>
         </View>
       );
     }
