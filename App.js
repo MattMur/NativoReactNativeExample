@@ -50,18 +50,16 @@ export default class App extends Component {
       let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
 
       let showLandingPage = (event) => {
-        console.log("Display landing page");
-        console.log(JSON.stringify(event.nativeEvent));
+        let adData = event.nativeEvent;
+        this.props.navigation.navigate('LandingPage', { isNativoAd: true, title: adData.title, authorName: adData.authorName, sectionUrl: "pub.com", locationId: props.index });
       };
       let showClickoutPage = (event) => {
-        console.log("Display clickout");
-        console.log(JSON.stringify(event.nativeEvent));
+        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.nativeEvent.url });
       };
       let onArticleClick = () => { 
-        console.log("Article clicked!");
         let params = { title: "News Article", 
-        authorName: props.item.key, 
-        articleUrl: "https://ktla.com/2019/11/11/neil-young-says-his-weed-use-has-stalled-his-u-s-citizenship-application/"};
+                  authorName: props.item.key, 
+                  articleUrl: "https://ktla.com/2019/11/11/neil-young-says-his-weed-use-has-stalled-his-u-s-citizenship-application/"};
         this.props.navigation.navigate('LandingPage', params);
       }
 
