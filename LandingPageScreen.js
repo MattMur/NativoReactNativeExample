@@ -27,11 +27,11 @@ export class LandingPageScreen extends Component {
             const shouldScroll = false;
             const nativoEvents = new NativeEventEmitter(NativoSDK);
 
-            this.handleExternalLink = nativoEvents.addListener('landingPageLinkClick', (event) => {
+            this.handleExternalLink = nativoEvents.addListener('landingPageHandleExternalLink', (event) => {
                 this.props.navigation.navigate("ClickoutPage", { articleUrl: event.url });
             });
 
-            this.handleFinishLoad = nativoEvents.addListener('landingPageFinishLoading', (event) => {
+            this.handleFinishLoad = nativoEvents.addListener('landingPageDidFinishLoading', (event) => {
                 if (event.error) {
                     console.log("There was an error: " + event.error);
                 } else {
