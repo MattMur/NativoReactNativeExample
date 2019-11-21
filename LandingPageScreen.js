@@ -16,21 +16,20 @@ export class LandingPageScreen extends Component {
                 height: 800
             }     
         };
+        this.webViewRef = React.createRef();
     }
 
     componentDidMount() {
         if (this.props.navigation.getParam('isNativoAd')) {
             let NativoSDK = NativeModules.NativoSDK;
-            const rootTag = findNodeHandle(this.refs.landingPage);
             const sectionUrl = this.props.navigation.getParam('sectionUrl');
             const locationId = this.props.navigation.getParam('locationId');
             const shouldScroll = false;
+            const webViewTag = findNodeHandle(this.webViewRef.current);
             const nativoEvents = new NativeEventEmitter(NativoSDK);
-
             this.handleExternalLink = nativoEvents.addListener('landingPageHandleExternalLink', (event) => {
                 this.props.navigation.navigate("ClickoutPage", { articleUrl: event.url });
             });
-
             this.handleFinishLoad = nativoEvents.addListener('landingPageDidFinishLoading', (event) => {
                 if (event.error) {
                     console.log("There was an error: " + event.error);
@@ -40,10 +39,9 @@ export class LandingPageScreen extends Component {
                             height: event.contentHeight
                         }     
                     });
-                }
+                }  
             });
-
-            NativoSDK.injectLandingPage(rootTag, sectionUrl, locationId, shouldScroll);
+            NativoSDK.loadSponsoredContent(webViewTag, sectionUrl, locationId, shouldScroll);
         }   
     }
 
@@ -55,15 +53,14 @@ export class LandingPageScreen extends Component {
     render() {
         const {navigation} = this.props;
         return (
-            <ScrollView ref='landingPage' style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text style={styles.title}>{navigation.getParam('title')}</Text>
                 <View style={styles.authorView}>
                     <Image nativeID={'authorImage'} style={styles.authorImage} />
                     <Text style={styles.authorName}>By {navigation.getParam('authorName')}</Text>
                 </View>
-                <WebView nativeID={'nativoAdWebView'} javaScriptEnabled={true} style={this.state.webStyle} automaticallyAdjustContentInsets={false} 
-                    domStorageEnabled={true} scalesPageToFit={false} useWebKit={true} 
-                    source={{uri: navigation.getParam('articleUrl')}}/>
+                <WebView ref={this.webViewRef} javaScriptEnabled={true} style={this.state.webStyle}
+                    domStorageEnabled={true} useWebKit={true} source={{uri: navigation.getParam('articleUrl')}}/>
             </ScrollView>
         )
     }

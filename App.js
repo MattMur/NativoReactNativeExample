@@ -35,26 +35,19 @@ export default class App extends Component {
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    //NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
-    NativoSDK.enableTestAdvertisements();
+    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
+    //NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
-
-    // Register Templates
-    NativoSDK.registerTemplateComponent("NativeAdTemplate", NativeAdTemplate);
-    NativoSDK.registerTemplateComponent("VideoAdTemplate", VideoAdTemplate);
-    NativoSDK.registerTemplateComponent("StandardDisplayAdTemplate", StandardDisplayAdTemplate);
-    NativoSDK.registerTemplateComponent("LandingPageTemplate", LandingPageTemplate);
 
     let itemRender = (props) => {
 
       let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
 
       let showLandingPage = (event) => {
-        let adData = event.nativeEvent;
-        this.props.navigation.navigate('LandingPage', { isNativoAd: true, title: adData.title, authorName: adData.authorName, sectionUrl: "pub.com", locationId: props.index });
+        this.props.navigation.navigate('LandingPage', { isNativoAd: true, title: event.title, authorName: event.authorName, sectionUrl: event.sectionUrl, locationId: event.locationId });
       };
       let showClickoutPage = (event) => {
-        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.nativeEvent.url });
+        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.url });
       };
       let onArticleClick = () => { 
         let params = { title: "News Article", 
@@ -63,11 +56,10 @@ export default class App extends Component {
         this.props.navigation.navigate('LandingPage', params);
       }
 
-
       let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
-                                    locationId={props.index.toString()} 
-                                    nativeAdTemplate={"NativeAdTemplate"}
-                                    videoAdTemplate={"VideoAdTemplate"}
+                                    locationId={props.index} 
+                                    nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate}}
+                                    videoAdTemplate={{"VideoTemplate" : VideoAdTemplate}}
                                     onNativeAdClick={showLandingPage}
                                     onDisplayAdClick={showClickoutPage}
                                     style={{ width: "100%", height: 350 }} />);
