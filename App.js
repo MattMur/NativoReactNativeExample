@@ -35,7 +35,7 @@ export default class App extends Component {
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NATIVE);
+    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.SCROLL_VIDEO);
     //NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
 
@@ -58,8 +58,9 @@ export default class App extends Component {
 
       let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
                                     locationId={props.index} 
-                                    nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate}}
-                                    videoAdTemplate={{"VideoTemplate" : VideoAdTemplate}}
+                                    nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate }}
+                                    videoAdTemplate={{"VideoTemplate" : VideoAdTemplate }}
+                                    standardDisplayAdTemplate={{"StdTemplate" : StandardDisplayAdTemplate }}
                                     onNativeAdClick={showLandingPage}
                                     onDisplayAdClick={showClickoutPage}
                                     style={{ width: "100%", height: 350 }} />);

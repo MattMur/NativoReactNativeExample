@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image, ImageBackground, ProgressBarAndroid, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import Video from "react-native-video";
-import NativeAdTemplate from './NativeAdTemplate';
 
 const NativeVideoAdTemplate = (props) => {
     return (

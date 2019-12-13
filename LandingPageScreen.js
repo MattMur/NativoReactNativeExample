@@ -34,11 +34,7 @@ export class LandingPageScreen extends Component {
                 if (event.error) {
                     console.log("There was an error: " + event.error);
                 } else {
-                    this.setState({  
-                        webStyle: {
-                            height: event.contentHeight
-                        }     
-                    });
+                    this.setState({ webStyle: { height: event.contentHeight } });
                 }  
             });
             NativoSDK.loadSponsoredContent(webViewTag, sectionUrl, locationId, shouldScroll);
