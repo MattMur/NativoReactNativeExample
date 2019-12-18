@@ -183,7 +183,7 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
   - React-jsinspector (0.61.2)
-  - react-native-nativo-ads (1.0.1):
+  - react-native-nativo-ads (1.0.2):
     - NativoSDK
     - React
   - react-native-video (5.0.2):
@@ -250,7 +250,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-nativo-ads (from `../../react-native-nativo-ads`)
+  - react-native-nativo-ads (from `../node_modules/react-native-nativo-ads`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -303,7 +303,7 @@ EXTERNAL SOURCES:
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-nativo-ads:
-    :path: "../../react-native-nativo-ads"
+    :path: "../node_modules/react-native-nativo-ads"
   react-native-video:
     :path: "../node_modules/react-native-video"
   react-native-webview:
@@ -350,7 +350,7 @@ SPEC CHECKSUMS:
   React-jsi: 32285a21b1b24c36060493ed3057a34677d58d09
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
-  react-native-nativo-ads: 4b7e9900e8a19f03cd10b9708d134b0ac5c328ba
+  react-native-nativo-ads: b4bebc9c2591be9709eda02bf0e40371cfac9fde
   react-native-video: d01ed7ff1e38fa7dcc6c15c94cf505e661b7bfd0
   react-native-webview: 2aadbfef6b9eaa9e89b306ae3e31e6e870a6306d
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6

@@ -35,7 +35,7 @@ export default class App extends Component {
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.SCROLL_VIDEO);
+    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.STANDARD_DISPLAY);
     //NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
 
