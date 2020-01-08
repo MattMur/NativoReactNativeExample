@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { NativeModules, FlatList, Platform, StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
-import NativoAd from 'react-native-nativo-ads';
+import { NativoAd } from 'react-native-nativo-ads';
 import NativeAdTemplate from "./adTemplates/NativeAdTemplate";
 import VideoAdTemplate from "./adTemplates/NativeVideoAdTemplate";
 import StandardDisplayAdTemplate from "./adTemplates/StandardDisplayAdTemplate";
@@ -44,15 +44,23 @@ export default class App extends Component {
       let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
 
       let showLandingPage = (event) => {
-        this.props.navigation.navigate('LandingPage', { isNativoAd: true, title: event.title, authorName: event.authorName, sectionUrl: event.sectionUrl, locationId: event.locationId });
+        console.log("LandingPage Event: "+JSON.stringify(event.nativeEvent));
+        this.props.navigation.navigate('LandingPage', { 
+          isNativoAd: true, 
+          title: event.nativeEvent.title, 
+          authorName: event.nativeEvent.authorName, 
+          authorImgUrl: event.nativeEvent.authorImgUrl,
+          sectionUrl: event.nativeEvent.sectionUrl, 
+          locationId: event.nativeEvent.locationId 
+        });
       };
       let showClickoutPage = (event) => {
-        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.url });
+        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.nativeEvent.url });
       };
       let onArticleClick = () => { 
         let params = { title: "News Article", 
                   authorName: props.item.key, 
-                  articleUrl: "https://ktla.com/2019/11/11/neil-young-says-his-weed-use-has-stalled-his-u-s-citizenship-application/"};
+                  articleUrl: "https://www.cnn.com/travel/article/which-airline-survey-scli-intl/index.html"};
         this.props.navigation.navigate('LandingPage', params);
       }
 

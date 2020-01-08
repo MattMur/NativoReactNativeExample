@@ -13,7 +13,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 const MainNavigator = createStackNavigator({
   Home: {screen: App},
   ClickoutPage: {screen: ClickoutScreen },
-  LandingPage: {screen: LandingPageScreen},
+  LandingPage: {screen: LandingPageScreen}
 });
 
 const AppNavigation = createAppContainer(MainNavigator);
