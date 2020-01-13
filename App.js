@@ -17,62 +17,82 @@ import StandardDisplayAdTemplate from "./adTemplates/StandardDisplayAdTemplate";
 import LandingPageTemplate from "./adTemplates/LandingPageAdTemplate";
 
 export default class App extends Component {
-  render() {
+
+  constructor(props) {
+    super(props);
     let data = [
       { key: 'Matt' },
       { key: 'Dan' },
+      { key: 'Nativo1' },
       { key: 'Dominic' },
       { key: 'Jackson' },
+      { key: 'Nativo2' },
       { key: 'James' },
       { key: 'Joel' },
       { key: 'John' },
+      { key: 'Nativo3' },
       { key: 'Jillian' },
       { key: 'Greg' },
       { key: 'Julie' },
     ];
-    
+    this.state = { data : data };
+  }
+
+  render() {
     // Init NativoSDK
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.STANDARD_DISPLAY);
+    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NO_FILL);
     //NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
 
     let itemRender = (props) => {
+      console.log("Rendering item: "+JSON.stringify(props));
+      //let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
+      let isNativoAd = props.item.key.indexOf("Nativo") >= 0;
+      let NativoAdUnit;
 
-      let isNativoAd = props.index === 2 || props.index === 5 || props.index === 8;
+      if (isNativoAd) {
+        let showLandingPage = (event) => {
+          console.log("LandingPage Event: "+JSON.stringify(event));
+          this.props.navigation.navigate('LandingPage', { 
+            isNativoAd: true, 
+            title: event.title, 
+            authorName: event.authorName, 
+            authorImgUrl: event.authorImgUrl,
+            sectionUrl: event.sectionUrl, 
+            locationId: event.locationId 
+          });
+        };
+        let showClickoutPage = (event) => {
+          this.props.navigation.navigate('ClickoutPage', { articleUrl: event.url });
+        };
+        let removeNativoAd = (index, sectionUrl) => {
+          console.log("Remove me: " + index + " "+ sectionUrl);
+          let filteredData = this.state.data;
+          filteredData.splice(index, 1);
+          this.setState({ data : filteredData });
+        }
+        removeNativoAd = removeNativoAd.bind(this);
 
-      let showLandingPage = (event) => {
-        console.log("LandingPage Event: "+JSON.stringify(event.nativeEvent));
-        this.props.navigation.navigate('LandingPage', { 
-          isNativoAd: true, 
-          title: event.nativeEvent.title, 
-          authorName: event.nativeEvent.authorName, 
-          authorImgUrl: event.nativeEvent.authorImgUrl,
-          sectionUrl: event.nativeEvent.sectionUrl, 
-          locationId: event.nativeEvent.locationId 
-        });
-      };
-      let showClickoutPage = (event) => {
-        this.props.navigation.navigate('ClickoutPage', { articleUrl: event.nativeEvent.url });
-      };
+        NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
+                                  locationId={props.index} 
+                                  nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate }}
+                                  videoAdTemplate={{"VideoTemplate" : VideoAdTemplate }}
+                                  standardDisplayAdTemplate={{"StdTemplate" : StandardDisplayAdTemplate }}
+                                  onNativeAdClick={showLandingPage}
+                                  onDisplayAdClick={showClickoutPage}
+                                  onNeedsRemoveAd={removeNativoAd}
+                                  style={{ width: "100%", height: 350 }} />);
+      }
+      
       let onArticleClick = () => { 
         let params = { title: "News Article", 
                   authorName: props.item.key, 
                   articleUrl: "https://www.cnn.com/travel/article/which-airline-survey-scli-intl/index.html"};
         this.props.navigation.navigate('LandingPage', params);
       }
-
-      let NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
-                                    locationId={props.index} 
-                                    nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate }}
-                                    videoAdTemplate={{"VideoTemplate" : VideoAdTemplate }}
-                                    standardDisplayAdTemplate={{"StdTemplate" : StandardDisplayAdTemplate }}
-                                    onNativeAdClick={showLandingPage}
-                                    onDisplayAdClick={showClickoutPage}
-                                    style={{ width: "100%", height: 350 }} />);
-
       let ArticleUnit = (<View>
                   <Text style={styles.title}>
                     News Article
@@ -88,20 +108,18 @@ export default class App extends Component {
 
       return (
         <View style={styles.item}>
-          <TouchableHighlight onPress={onArticleClick}>
             { isNativoAd ? NativoAdUnit : ArticleUnit }
-          </TouchableHighlight>
         </View>
       );
     }
   
 
-  return(
-      <View style = { styles.container } >
-        <Text style={styles.welcome}>☆NativoAds example☆</Text>
-        <FlatList data={data} renderItem={itemRender} style={styles.list} />
-      </View>
-    );
+    return(
+        <View style = { styles.container } >
+          <Text style={styles.welcome}>☆NativoAds example☆</Text>
+          <FlatList data={this.state.data} renderItem={itemRender} style={styles.list} />
+        </View>
+      );
 
   }
 }

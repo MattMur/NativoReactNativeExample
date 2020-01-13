@@ -19,7 +19,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - NativoSDK (5.1.0)
+  - NativoSDK (5.1.4)
   - RCTRequired (0.61.2)
   - RCTTypeSafety (0.61.2):
     - FBLazyVector (= 0.61.2)
@@ -183,7 +183,7 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
   - React-jsinspector (0.61.2)
-  - react-native-nativo-ads (1.0.2):
+  - react-native-nativo-ads (1.0.3):
     - NativoSDK
     - React
   - react-native-video (5.0.2):
@@ -238,7 +238,7 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - NativoSDK (from `../../NativoSDK-Pod/`)
+  - NativoSDK (from `../NativoSDK-iOS/`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -283,7 +283,7 @@ EXTERNAL SOURCES:
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   NativoSDK:
-    :path: "../../NativoSDK-Pod/"
+    :path: "../NativoSDK-iOS/"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -340,7 +340,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 5a764c60abdc3336a213e5310c40b74741f32839
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  NativoSDK: 7561844e2dc2b17a9ee0734277f68d3d2746ac6e
+  NativoSDK: ab111bd09c6d9e13873a23c879aee6ca832790e2
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
   RCTTypeSafety: dc23fb655d6c77667c78e327bf661bc11e3b8aec
   React: 7e586e5d7bec12b91c1a096826b0fc9ab1da7865
@@ -350,7 +350,7 @@ SPEC CHECKSUMS:
   React-jsi: 32285a21b1b24c36060493ed3057a34677d58d09
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
-  react-native-nativo-ads: b4bebc9c2591be9709eda02bf0e40371cfac9fde
+  react-native-nativo-ads: bfb66621106738e665441385718a9c020f6382f3
   react-native-video: d01ed7ff1e38fa7dcc6c15c94cf505e661b7bfd0
   react-native-webview: 2aadbfef6b9eaa9e89b306ae3e31e6e870a6306d
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
@@ -366,6 +366,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: 7add966bb5d90ee8cf38d4341f87814474357972
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 81cfe559e8f182d84e80360e30e4bc5efdcdca59
+PODFILE CHECKSUM: 8b0ce66b712dce5d587b0e897e62247ff28f4dea
 
 COCOAPODS: 1.8.4

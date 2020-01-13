@@ -39,8 +39,8 @@ target 'NativoRNExample' do
     # Pods for testing
   end
 
-  pod 'NativoSDK', :path => "../../NativoSDK-Pod/"
-  #pod 'NativoSDK', :path => "../NativoSDK/"
+  #pod 'NativoSDK', :path => "../../NativoSDK-Pod/"
+  pod 'NativoSDK', :path => "../NativoSDK-iOS/"
 
   use_native_modules!
 end
