@@ -43,8 +43,8 @@ export default class App extends Component {
     let NativoSDK = NativeModules.NativoSDK;
 
     NativoSDK.enableDevLogs();
-    NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NO_FILL);
-    //NativoSDK.enableTestAdvertisements();
+    //NativoSDK.enableTestAdvertisementsWithType(NativoSDK.AdTypes.NO_FILL);
+    NativoSDK.enableTestAdvertisements();
     //NativoSDK.prefetchAdForSection("pub.com", "7");
 
     let itemRender = (props) => {
@@ -62,29 +62,29 @@ export default class App extends Component {
             authorName: event.authorName, 
             authorImgUrl: event.authorImgUrl,
             sectionUrl: event.sectionUrl, 
-            locationId: event.locationId 
+            index: event.index 
           });
         };
         let showClickoutPage = (event) => {
           this.props.navigation.navigate('ClickoutPage', { articleUrl: event.url });
         };
-        let removeNativoAd = (index, sectionUrl) => {
-          console.log("Remove me: " + index + " "+ sectionUrl);
+        let removeNativoAd = (event) => {
+          console.log("Remove me: " + event.index + " "+ event.sectionUrl);
           let filteredData = this.state.data;
-          filteredData.splice(index, 1);
+          filteredData.splice(event.index, 1);
           this.setState({ data : filteredData });
         }
         removeNativoAd = removeNativoAd.bind(this);
 
         NativoAdUnit = (<NativoAd sectionUrl={"pub.com"} 
-                                  locationId={props.index} 
+                                  index={props.index} 
                                   nativeAdTemplate={{"NativeTemplate" : NativeAdTemplate }}
                                   videoAdTemplate={{"VideoTemplate" : VideoAdTemplate }}
                                   standardDisplayAdTemplate={{"StdTemplate" : StandardDisplayAdTemplate }}
                                   onNativeAdClick={showLandingPage}
                                   onDisplayAdClick={showClickoutPage}
                                   onNeedsRemoveAd={removeNativoAd}
-                                  style={{ width: "100%", height: 350 }} />);
+                                  style={{ width: "100%" }} />);
       }
       
       let onArticleClick = () => { 

@@ -64,7 +64,7 @@ export class LandingPageScreen extends Component {
                 <NativoWebContent 
                     style={this.state.webStyle} 
                     sectionUrl={navigation.getParam('sectionUrl')} 
-                    locationId={navigation.getParam('locationId')} 
+                    index={navigation.getParam('index')} 
                     onClickExternalLink={(event)=> {
                         navigation.navigate("ClickoutPage", { articleUrl: event.url });
                     }} 
